@@ -1,0 +1,82 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+//protótipo
+void somaVet(int *vet1, int *vet2, int qtde1, int qtde2, int *vet3, int *qtde3);
+
+int main()
+{
+    int *vetor1, *vetor2, *vetor3;
+    int qtde1, qtde2, *qtde3;
+    int i;
+
+    printf("Digite o tam do vetor1: ");
+    scanf("%d", &qtde1);
+    printf("Digite o tam do vetor2: ");
+    scanf("%d", &qtde2);
+
+    vetor1 = (int*) malloc(qtde1 * sizeof(int));
+    if (vetor1 == NULL)
+    {
+        printf("Erro de Memoria!");
+        exit(1);
+    }
+    vetor2 = (int*) malloc(qtde2 * sizeof(int));
+    if (vetor1 == NULL)
+    {
+        printf("Erro de Memoria!");
+        exit(1);
+    }
+    
+    for ( i = 0; i < qtde1; i++)
+    {
+        printf("Digite o Elemento [%d] do vetor1: ", i+1);
+        scanf("%d", &vetor1[i]);
+    }
+    for ( i = 0; i < qtde2; i++)
+    {
+        printf("Digite o Elemento [%d] do vetor2: ", i+1);
+        scanf("%d", &vetor2[i]);
+    }
+    
+    somaVet(vetor1, vetor2, qtde1, qtde2, &vetor3, &qtde3);
+
+    // for (int i = 0; i < qtde3; i++)
+    // {
+    //     printf("%d\n", vetor3[i]);
+    // }
+    
+    free(vetor1);
+    free(vetor2);
+    free(vetor3);
+    return 0;
+}
+
+//função
+void somaVet(int *vet1, int *vet2, int qtde1, int qtde2, int *vet3, int *qtde3)
+{
+    int i, j;
+
+    *qtde3 = qtde1 + qtde2; //conteudo apontado por qtde3 recebe qtde1 + qtde2
+
+    vet3 = (int*) malloc(*qtde3 * sizeof(int));
+    if(vet3 == NULL)
+    {
+        printf("Erro de Memoria!");
+        exit(1);
+    }
+
+    for ( i = 0; i < qtde1; i++)
+    {
+        vet3[i] = vet1[i];
+    }
+    for ( j = 0; j < qtde2; j++)
+    {
+        vet3[qtde1 + j] = vet2[j];
+    }
+    printf("\nVetor 3\n");
+    for ( i = 0; i < *qtde3; i++)
+    {
+        printf("Posicao [%d] -> Elemento [%d]\n", i, vet3[i]);
+    }
+}
