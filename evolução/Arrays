@@ -1,0 +1,98 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+float leitorTemperatura();
+void carregaArray(float temp[24]);
+float calcTemMed(float temp[24]);
+int detTemMin(float temp[24]);
+int detTemMax(float temp[24]);
+
+/*
+    implementar na função main um código que leia 24 valores de tempertatura,
+    uilizando a função leitorTempératura, e armazene num array de floats.
+
+    Posteriormente o código deve percoptrrer o array e determinar:
+    a) a temperatura média do dia
+    b) a temperatura mínima do dia e em que horário a mesma aconteceu;
+    c) a temperatúra máxima do dia e em que horárii a mesma aconteceu;
+
+*/
+
+
+
+    int main(void){
+
+    float valoresTemp[24]={0};
+    carregaArray(valoresTemp);
+
+    float tMed, tMax, tMin;
+    int hMin, hMax;
+    int i;
+
+
+    tMed = calcTemMed(valoresTemp);
+    hMin = detTemMin(valoresTemp);
+    tMin = valoresTemp[hMin];
+    hMax = detTemMax(valoresTemp);
+    tMax = valoresTemp[hMax];
+    //saída
+
+    for ( i = 0; i < 24; i++)
+    {
+        printf("temperatura Media do Dia: %.2f /n", tMed);
+        printf("temperatura Media do Dia: %.2f /n", hMin);
+        printf("temperatura Media do Dia: %.2f /n", tMin);
+        printf("temperatura Media do Dia: %.2f /n", hMax);
+        printf("temperatura Media do Dia: %.2f /n", tMax);
+    }
+    
+
+    return 0;
+}
+
+int detTemMin(float temp[24]){
+    float tMin = temp[0];
+    int hMin = 0;
+    for(int i = 0; i < 24; i++){
+        if(temp[i] < tMin){
+            tMin = temp[i];
+            hMin = i; 
+        }
+    }
+    return hMin;
+}
+
+int detTemMax(float temp[24]){
+
+}
+
+float calcTemMed(float temp[24]){
+    float total = 0;
+    for(int i = 0; i <= 23; i++){
+        total += temp[i];
+    }
+    return (total / 24);
+}
+
+/*
+   Simular um sensor de temperatura supondo que a temperatuar varia
+   numa faixa 28 C mais o menos 2 graus.
+*/
+float leitorTemperatura(){
+    float temp;
+    //srand() define a semente da seq pseudo aleatoria.
+    // RAND_MAX
+    temp = 26 + ((float)rand()/RAND_MAX)*4;
+    // o valor de rand() esta no intervalo 0 <= rand() <= RAND_MAX
+    // se rand() retorna 0 -> 0/RAND_MAX = 0
+    // se rand() retorna RAND_MAX -> RAND_MAX/RAND_MAX = 1
+    // um valor entre 0 e 1 vezes 4 gera um valor entre 0 e 4
+    // 26 mais um valor entre 0 e 4 gera um valor entre 26 e 30
+    return temp;
+}
+
+void carregaArray(float temp[24]){
+    for(int i = 0; i < 24; i++){
+        temp[i] = leitorTemperatura();
+    }
+}
